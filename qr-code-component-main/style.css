@@ -1,0 +1,35 @@
+@import url(https://fonts.google.com/specimen/Outfit);
+
+body{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    background-color: hsl(212, 45%, 89%);
+}
+
+img{
+    width: 280px;
+    border-radius: 10px;
+}
+
+h1{
+    font-size: 20pt;
+    color: hsl(218, 44%, 22%);
+    text-align: center;
+}
+
+p{
+    width: 200px;
+    font-size: 10pt;
+    color: hsl(216, 15%, 48%);
+    text-align: center;
+}
+
+.conteiner{
+    font-family: 'Outfit',sans-serif,;
+    margin: 60px auto;
+    padding: 15px 10px; 
+    max-width: 300px;
+    background-color: hsl(0, 0%, 100%);
+    justify-items: center;
+    border-radius: 20px;
+}
