@@ -1,0 +1,57 @@
+html {
+    font-family: sans-serif;
+}
+
+body {
+    margin: 0;
+  }
+
+header {
+    background: rgb(16, 129, 12);
+    height: 100px;
+
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    line-height: 100px;
+    margin: 0;
+}
+
+section{
+    display: flex;
+    /*
+    flex-direction: row;
+    dispoe a posiçao dos elementos filhos do section(no exemplo,foram dispostos em linhas)
+
+    flex-wrap: wrap;
+    impede que os elementos filhos saiam da section(pai)
+    */
+
+    /*essa é uma abreviaçao dos metodos acima*/
+    flex-flow: row;
+}
+
+article {
+    padding: 10px;
+    margin: 10px;
+    background: aqua;
+}
+
+nav{
+    display: flex;
+    width: 100%;
+    flex-flow: row wrap;
+    justify-content:space-between;
+}
+
+button{
+    width: 100px;
+    padding: 10px;
+}
+
+#dois{
+    /*por padrao, todo elemento html vem com order:0; ao trocar o valor de order, a ordem dos elementos é alterada sem que o html seja afetado*/
+    order: -1;
+}
