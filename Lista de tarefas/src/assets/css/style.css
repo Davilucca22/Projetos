@@ -5,7 +5,7 @@
 
 :root{
     --cor-de-fundo: #2c2938;
-    --cor-btn: #181713;
+    --cor-btn: #a18617;
     --cor-lista: rgb(74, 71, 83);
 }
 
@@ -18,7 +18,7 @@ nav{
     padding: 30px;
 }
 
-nav input:hover{
+input:hover{
     cursor: pointer;
 }
 
@@ -44,6 +44,10 @@ hr{
 }
 
 p{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     padding: 20px;
     font-size: large;
     font-weight: bold;
@@ -115,4 +119,8 @@ p{
     border: 0;
     background-color: var(--cor-btn);
     font-weight: bold;
+}
+
+#edit_2{
+    display: none;
 }
