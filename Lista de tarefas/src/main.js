@@ -35,37 +35,47 @@ function criaTarefa(texto) {
     const lista_de_tarefas = document.querySelector('#lista_de_tarefas')
     const corpo_da_lista = document.querySelector('#corpo_da_lista')
 
-    corpo_da_lista.innerHTML = ''
+    corpo_da_lista.innerHTML = '';
 
-    for(let elemento in texto){
+    texto.forEach((item,index) => {
         const tarefa = document.createElement('li')
-        tarefa.classList = 'tarefa'
-        tarefa.id = elemento
+        tarefa.classList= 'tarefa'
+        tarefa.setAttribute('data-id',index)
+
         const paragrafo = document.createElement('p')
-        paragrafo.innerText = texto[elemento]
+        paragrafo.innerText = item
+
         const edit_del = document.createElement('div')
         edit_del.id = "edit_del"
+
         const btn_del = document.createElement('input')
         btn_del.value = 'Del'
         btn_del.type = 'button'
-        btn_del.id = 'deletar'
+        btn_del.classList.add('deletar')
+
         const btn_edit = document.createElement('input')
         btn_edit.value = 'Edit'
         btn_edit.type = 'button'
-        btn_edit.id = 'editar'
+        btn_edit.classList = 'editar'
+
         const quebra_linha = document.createElement('hr')
+
         edit_del.appendChild(btn_edit)
         edit_del.appendChild(btn_del)
+
         paragrafo.appendChild(edit_del)
+
         tarefa.appendChild(paragrafo)
         tarefa.appendChild(quebra_linha)
+
         corpo_da_lista.appendChild(tarefa)
-        lista_de_tarefas.appendChild(corpo_da_lista)
-    }
-    console.log(texto)
 
-    return lista_de_tarefas
+    })
 
+    lista_de_tarefas.appendChild(corpo_da_lista)
+
+    btn_editar()
+    btn_deleta()
 }
 
 
@@ -75,19 +85,18 @@ function criaTarefa(texto) {
 */
 
 function btn_editar() {
-    const btn_edit = document.querySelectorAll('#editar')
+    const btn_edit = document.querySelectorAll('.editar')
 
     btn_edit.forEach((element) => {
         element.addEventListener('click', () =>{
-            console.log('clicou no editar')
-            const pai = element.parentElement
-            const avo = pai.parentElement
-            const bisavo = avo.parentElement
+           const tarefa = element.closest('li')
+           const id = tarefa.getAttribute('data-id')
+           const texto_tarefa = tarefa.querySelector('p').innerText
 
             desligaModal(false)
 
             const input = document.querySelector('#texto')
-            input.value = avo.innerText
+            input.value = texto_tarefa
 
             const ok = document.querySelector('#confirmar')
             ok.style.display = 'none'
@@ -96,31 +105,32 @@ function btn_editar() {
             Confirma_ediçao.style.display = 'inline'
 
             Confirma_ediçao.addEventListener('click',() => {
-                array.splice(bisavo.id,1,input.value)
-                desligaModal(true)
+                array[id] = input.value
+                SalvaLista(array)
                 criaTarefa(array)
+                desligaModal(true)
             })
         })
     })
 }
 
 function btn_deleta() {
-    const btn_deletar = document.querySelectorAll('#deletar')
+    const btn_deletar = document.querySelectorAll('.deletar')
 
     //selectorAll retorna uma nodelist, para acessar os elementos desse nodelist usei o forEach e peguei os elementos pais do btn para apagar tudo de uma só vez
     btn_deletar.forEach((element) => {
         element.addEventListener('click', () => {
-            const pai = element.parentElement
-            const avo = pai.parentElement
-            const bisavo = avo.parentElement
+            const tarefa = element.closest('li')
+            const id = tarefa.getAttribute('data-id')
 
-            array.splice(bisavo.id,1)
+            array.splice(id,1)
+            SalvaLista(array)
             criaTarefa(array)
         })
     })
-
-    btn_editar()
 }
+
+const array = []
 
 const btn_add = document.querySelector('#btn-add').addEventListener('click', () => {
     desligaModal(false)
@@ -134,15 +144,10 @@ const btn_add = document.querySelector('#btn-add').addEventListener('click', () 
     ok.style.display = 'inline'
 
     //esconde o btn de confirmar a ediçao
-    const Confirma_ediçao = document.querySelector('#edit_2').addEventListener('click',() => {
-        btn_editar()
-        btn_deleta()
-    })
+    const Confirma_ediçao = document.querySelector('#edit_2')
     Confirma_ediçao.style.display = 'none'
 
 })
-
-const array = []
 
 const btn_confirma = document.querySelector('#confirmar').addEventListener('click', () => {
     const input_texto = document.querySelector('#texto')
@@ -163,8 +168,7 @@ const btn_cancelar = document.querySelector('#cancelar').addEventListener('click
 })
 
 
-window.onload = desligaModal(true)
-window.onload = recuperaDados()
-window.onload = btn_editar()
-window.onload = btn_deleta()
-
+window.onload = () =>{
+    recuperaDados()
+    desligaModal(true)
+}
