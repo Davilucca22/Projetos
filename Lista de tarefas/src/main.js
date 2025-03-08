@@ -89,26 +89,32 @@ function btn_editar() {
 
     btn_edit.forEach((element) => {
         element.addEventListener('click', () =>{
-           const tarefa = element.closest('li')
-           const id = tarefa.getAttribute('data-id')
-           const texto_tarefa = tarefa.querySelector('p').innerText
+
+            const tarefa = element.closest('li')
+            const texto_tarefa = tarefa.querySelector('p').innerText //texto da tarefa
+
+            const input = document.querySelector('#texto') //input da janela modal
+            input.value = texto_tarefa
+            console.log(input.value)
 
             desligaModal(false)
-
-            const input = document.querySelector('#texto')
-            input.value = texto_tarefa
-
+          
             const ok = document.querySelector('#confirmar')
-            ok.style.display = 'none'
+            ok.style.display = 'none' //esconde o botao confirmar
 
             const Confirma_ediçao = document.querySelector('#edit_2')
-            Confirma_ediçao.style.display = 'inline'
+            Confirma_ediçao.style.display = 'inline' //mostra o botao confirmar ediçao
 
             Confirma_ediçao.addEventListener('click',() => {
+               
+                const id = tarefa.getAttribute('data-id')
                 array[id] = input.value
+
                 SalvaLista(array)
-                criaTarefa(array)
                 desligaModal(true)
+
+                tarefa.innerText = input.value
+                window.location.reload(true)
             })
         })
     })
@@ -165,6 +171,7 @@ const btn_cancelar = document.querySelector('#cancelar').addEventListener('click
     desligaModal(true)
     const input_texto = document.querySelector('#texto')
     input_texto.value = ''
+    window.location.reload(true)
 })
 
 
